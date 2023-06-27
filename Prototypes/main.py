@@ -1,48 +1,34 @@
-from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
 from kivymd.app import MDApp
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.label import MDLabel
-from kivymd.uix.pickers import MDDatePicker
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.graphics import Color, Rectangle
+from datepicker import CalendarWidget
 
-Builder.load_string("""
-<CalendarWidget>:
-    orientation: 'vertical'
-    padding: "10dp"
-
-    MDFlatButton:
-        text: "Selecionar Data"
-        on_release: root.show_date_picker()
-
-    MDLabel:
-        id: selected_date_label
-        text: "Data selecionada:"
-
-""")
-
-
-class CalendarWidget(BoxLayout):
+class CalendarScreen(MDBoxLayout):
     def __init__(self, **kwargs):
-        super(CalendarWidget, self).__init__(**kwargs)
+        super(CalendarScreen, self).__init__(**kwargs)
+        self.orientation = 'vertical'
+        self.padding = "10dp"
+        
+        with self.canvas:
+            Color(0, 0, 0, 1)  # Cor de fundo preta
+            self.rect = Rectangle(pos=self.pos, size=self.size)
 
-    def show_date_picker(self):
-        date_dialog = MDDatePicker()
-        date_dialog.bind(on_save=self.on_date_save, on_cancel=self.on_date_cancel)
-        date_dialog.open()
+        self.bind(pos=self.update_rect, size=self.update_rect)
 
-    def on_date_save(self, instance, date):
-        selected_date_label = self.ids.selected_date_label
-        selected_date_label.text = f"Data selecionada: {date.strftime('%d/%m/%Y')}"
+        calendar_widget = CalendarWidget()
+        self.add_widget(calendar_widget)
 
-    def on_date_cancel(self, instance, date):
-        pass
+    def update_rect(self, *args):
+        self.rect.pos = self.pos
+        self.rect.size = self.size
 
 
-class CalendarApp(MDApp):
+class MainApp(MDApp):
     def build(self):
-        return CalendarWidget()
+        Window.size = (300, 500)  # Tamanho da janela para exibição desktop
+        return CalendarScreen()
 
 
-if __name__ == "__main__":
-    CalendarApp().run()
+if __name__ == '__main__':
+    MainApp().run()

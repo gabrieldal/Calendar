@@ -1,0 +1,7 @@
+/.buildozer
+/kivy_venv
+/libs/__pycache__
+adb.exe
+AdbWinApi.dll
+AdbWinUsbApi.dll
+

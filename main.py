@@ -26,7 +26,6 @@ class CalendarScreen(MDBoxLayout):
 
 class MainApp(MDApp):
     def build(self):
-        Window.size = (300, 500)  # Tamanho da janela para exibição desktop
         return CalendarScreen()
 
 

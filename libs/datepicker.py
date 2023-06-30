@@ -20,6 +20,9 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.core.window import Window
 from kivy.properties import NumericProperty, ReferenceListProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.checkbox import CheckBox
+from libs.tasks import TasksPopup
 
 ###########################################################
 Builder.load_string("""
@@ -112,7 +115,7 @@ class DatePicker(TextInput):
 class CalendarWidget(RelativeLayout):
     """ Basic calendar widget """
     
-    def __init__(self, as_popup=False, touch_switch=False, *args, **kwargs):
+    def __init__(self, as_popup=False, touch_switch=True, *args, **kwargs):
         super(CalendarWidget, self).__init__(*args, **kwargs)
         
         self.as_popup = as_popup
@@ -169,7 +172,7 @@ class CalendarWidget(RelativeLayout):
                 else:  # work days
                     tbtn = DayNumButton(text=str(day[0]))
                 
-                tbtn.bind(on_press=self.get_btn_value)
+                tbtn.bind(on_press=self.open_tasks)
                 
                 if toogle_today:
                     # Down today button
@@ -183,6 +186,11 @@ class CalendarWidget(RelativeLayout):
 
         self.sm.add_widget(scr)
         
+    def open_tasks(self, instance):
+        day = instance.text
+        tasks_popup = TasksPopup(day=day)
+        tasks_popup.open()
+    
     def prepare_data(self):
         """ Prepare data for showing on widget loading """
     

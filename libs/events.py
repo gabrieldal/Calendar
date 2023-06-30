@@ -47,7 +47,7 @@ Builder.load_string('''
                         hint_text: 'Hora de início'
                         text: '01:00'
                         text_color_normal: 1, 1, 1, 1
-                        on_double_tap: show_time_picker()
+                        on_double_tap: app.show_time_picker()
                         
                 MDBoxLayout:
                     spacing: '8dp'
@@ -62,7 +62,7 @@ Builder.load_string('''
                         hint_text: 'Hora de término'
                         text: '02:00'
                         text_color_normal: 1, 1, 1, 1
-                        on_double_tap: show_time_picker()
+                        on_double_tap: app.show_time_picker()
                 
                 MDTextField:
                     id: description_field

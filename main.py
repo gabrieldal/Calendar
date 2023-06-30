@@ -1,34 +1,43 @@
+from kivy.lang import Builder
 from kivy.core.window import Window
 from kivymd.app import MDApp
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.graphics import Color, Rectangle
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivymd.uix.pickers import MDTimePicker
 from libs.datepicker import CalendarWidget
+from libs.events import CalendarEventScreen
 
-class CalendarScreen(MDBoxLayout):
-    def __init__(self, **kwargs):
-        super(CalendarScreen, self).__init__(**kwargs)
-        self.orientation = 'vertical'
-        self.padding = "10dp"
-        
-        with self.canvas:
-            Color(0, 0, 0, 1)  # Cor de fundo preta
-            self.rect = Rectangle(pos=self.pos, size=self.size)
+class CalendarScreen(Screen):
+    pass
 
-        self.bind(pos=self.update_rect, size=self.update_rect)
-
-        calendar_widget = CalendarWidget()
-        self.add_widget(calendar_widget)
-
-    def update_rect(self, *args):
-        self.rect.pos = self.pos
-        self.rect.size = self.size
-
+class EventScreen(Screen):
+    pass
 
 class MainApp(MDApp):
     def build(self):
-        Window.size = (300, 500)  # Tamanho da janela para exibição desktop
-        return CalendarScreen()
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Blue"
 
+        sm = ScreenManager()
+        sm.add_widget(CalendarScreen(name='calendar'))
+        sm.add_widget(EventScreen(name='event'))
+        return sm
+    
+    def show_event_screen(self):
+        self.root.current = 'event'
+
+    def show_calendar_screen(self):
+        self.root.current = 'calendar'
+
+    def show_time_picker(self):
+        #Open time picker dialog
+
+        time_dialog = MDTimePicker()
+        time_dialog.bind(time=self.get_time)
+        time_dialog.open()
+
+    def get_time(self, instance, time):
+    
+        return time
 
 if __name__ == '__main__':
     MainApp().run()

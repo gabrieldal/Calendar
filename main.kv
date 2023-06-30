@@ -1,0 +1,32 @@
+<CalendarScreen>:
+    MDBoxLayout:
+        
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 1  # Cor de fundo preta
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        CalendarWidget:
+        
+        MDBottomAppBar:
+            md_bg_color: 0.35, 0.35, 0.35, 1
+            MDTopAppBar:
+                title: "Calendário"
+                icon: "plus"
+                type: "bottom"
+                left_action_items: [["menu", lambda x: x]]
+                mode: "end"
+                on_action_button: app.show_event_screen()
+
+<EventScreen>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 1  # Cor de fundo preta
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    CalendarEventScreen:

@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.pickers import MDDatePicker, MDTimePicker
 from libs.datepicker import DatePicker
+from libs.timepicker import TimePicker
 
 
 # Carregando o arquivo KV
@@ -42,27 +43,27 @@ Builder.load_string('''
                         hint_text: 'Data de início'
                         text_color_normal: 1, 1, 1, 1
 
-                    MDTextField:
+                    TimePicker:
                         id: start_time_field
                         hint_text: 'Hora de início'
                         text: '01:00'
                         text_color_normal: 1, 1, 1, 1
-                        on_double_tap: app.show_time_picker()
+                        validator: "time"
                         
                 MDBoxLayout:
                     spacing: '8dp'
 
                     DatePicker:
                         id: end_date_field
-                        text_color_normal: 1, 1, 1, 1
                         hint_text: 'Data de término'
+                        text_color_normal: 1, 1, 1, 1
                         
-                    MDTextField:
+                    TimePicker:
                         id: end_time_field
                         hint_text: 'Hora de término'
                         text: '02:00'
                         text_color_normal: 1, 1, 1, 1
-                        on_double_tap: app.show_time_picker()
+                        validator: "time"
                 
                 MDTextField:
                     id: description_field

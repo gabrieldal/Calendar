@@ -28,16 +28,5 @@ class MainApp(MDApp):
     def show_calendar_screen(self):
         self.root.current = 'calendar'
 
-    def show_time_picker(self):
-        #Open time picker dialog
-
-        time_dialog = MDTimePicker()
-        time_dialog.bind(time=self.get_time)
-        time_dialog.open()
-
-    def get_time(self, instance, time):
-    
-        return time
-
 if __name__ == '__main__':
     MainApp().run()

@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.uix.pickers import MDDatePicker, MDTimePicker
 from libs.datepicker import DatePicker
 from libs.timepicker import TimePicker
+import json
 
 
 # Carregando o arquivo KV
@@ -86,27 +87,5 @@ class CalendarEventScreen(Screen):
         screen = CalendarEventScreen()
         return screen
     
-    def show_calendar_screen(self):
-        # Implemente a lógica para exibir a tela de calendário
-        pass
-
     
-    def save_event(self):
-        # Implemente a lógica para salvar o evento no calendário
-        title = self.root.ids.title_field.text
-        start_date = self.root.ids.start_date_field.text
-        end_date = self.root.ids.end_date_field.text
-        start_time = self.root.ids.start_time_field.text
-        end_time = self.root.ids.end_time_field.text
-        description = self.root.ids.description_field.text
-        
-        # Faça algo com os dados do evento
-        
-        # Limpe os campos de entrada
-        self.root.ids.title_field.text = ''
-        self.root.ids.start_date_field.text = ''
-        self.root.ids.end_date_field.text = ''
-        self.root.ids.start_time_field.text = ''
-        self.root.ids.end_time_field.text = ''
-        self.root.ids.description_field.text = ''
-        
+

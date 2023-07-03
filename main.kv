@@ -17,16 +17,29 @@
                 title: "Calendário"
                 icon: "plus"
                 type: "bottom"
-                left_action_items: [["menu", lambda x: x]]
+                left_action_items: [["menu", lambda x: app.show_event_view_screen()]]
                 mode: "end"
-                on_action_button: app.show_event_screen()
+                on_action_button: app.root.current = 'event'
 
 <EventScreen>:
-    orientation: 'vertical'
-    canvas:
-        Color:
-            rgba: 0, 0, 0, 1  # Cor de fundo preta
-        Rectangle:
-            pos: self.pos
-            size: self.size
-    CalendarEventScreen:
+    
+<EventViewScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 1  # Cor de fundo preta
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDTopAppBar:
+            title: 'Eventos'
+            elevation: 10
+            left_action_items: [['arrow-left', lambda x: app.show_calendar_screen()]]
+
+        ScrollView:
+            do_scroll_x: False
+
+            MDList:
+                id: event_list
+                padding: 10

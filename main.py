@@ -9,6 +9,7 @@ from kivymd.uix.list import MDList,TwoLineAvatarIconListItem,IconLeftWidget,Icon
 from libs.datepicker import CalendarWidget
 from libs.events import CalendarEventScreen
 import json
+import os
 
 class CalendarScreen(Screen):
     pass
@@ -23,6 +24,12 @@ class EventViewScreen(Screen):
 
 class MainApp(MDApp):
     def build(self):
+        # Verifica se o arquivo events.json existe
+        if not os.path.isfile('events.json'):
+            # Cria o arquivo events.json se não existir
+            with open('events.json', 'w') as f:
+                f.write('[]')  # Escreve uma lista vazia no arquivo
+
         self.theme_cls.theme_style = "Dark"
         self.theme_cls.primary_palette = "Blue"
 

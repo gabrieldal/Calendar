@@ -1,35 +1,19 @@
-from kivymd.app import MDApp
-from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
-from kivymd.uix.pickers import MDDatePicker, MDTimePicker
-from libs.datepicker import DatePicker
-from libs.timepicker import TimePicker
-import json
-
-
-# Carregando o arquivo KV
-Builder.load_string('''
-<CalendarEventScreen>:
-    name: 'calendar_event'
-    
+<EventsScreenView>
+        
     MDBoxLayout:
         orientation: 'vertical'
-        canvas:
-            Color:
-                rgba: 0, 0, 0, 1  # Cor de fundo preta
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        
         MDTopAppBar:
             title: 'Cadastro de Evento'
             elevation: 10
-            left_action_items: [['arrow-left', lambda x: app.show_calendar_screen()]]
+            left_action_items: [['arrow-left', lambda x: root.controller.go_back()]]
         
         ScrollView:
             
             MDBoxLayout:
                 orientation: 'vertical'
                 padding: '16dp'
+                adaptive_height: True
                 
                 MDTextField:
                     id: title_field
@@ -37,6 +21,7 @@ Builder.load_string('''
                     text_color_normal: 1, 1, 1, 1
                     
                 MDBoxLayout:
+                    adaptive_height: True
                     spacing: '8dp'
 
                     DatePicker:
@@ -52,6 +37,7 @@ Builder.load_string('''
                         validator: "time"
                         
                 MDBoxLayout:
+                    adaptive_height: True
                     spacing: '8dp'
 
                     DatePicker:
@@ -74,18 +60,7 @@ Builder.load_string('''
                 
                 MDRaisedButton:
                     text: 'Salvar'
-                    on_release: app.save_event()
+                    on_release: root.save_event_data()
                     size_hint: None, None
                     size: dp(120), dp(48)
                     pos_hint: {'center_x': 0.5}
-''')
-
-
-
-class CalendarEventScreen(Screen):
-    def build(self):
-        screen = CalendarEventScreen()
-        return screen
-    
-    
-

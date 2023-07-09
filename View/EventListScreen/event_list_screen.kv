@@ -1,0 +1,15 @@
+<EventListScreenView>
+    on_pre_enter: root.controller.load_events()
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDTopAppBar:
+            title: 'Eventos'
+            left_action_items: [['arrow-left', lambda x: root.controller.go_back()]]
+
+        ScrollView:
+            do_scroll_x: False
+
+            MDList:
+                id: event_list
+                padding: 10

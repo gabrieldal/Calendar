@@ -14,5 +14,23 @@ class TaskListScreenController:
         self.model = model  # Model.task_list_screen.TaskListScreenModel
         self.view = TaskListScreenView(controller=self, model=self.model)
 
+    def on_save_task(self, task_data):
+        self.model.save_task(task_data)
+        self.view.clear_field()
+
+    def go_back(self):
+        self.view.manager_screens.current = 'calendar screen'
+        self.view.manager_screens.transition.direction = 'left'
+        self.view.clear_field()
+
+    def load_tasks(self):
+        self.model.load_tasks()
+
+    def get_tasks(self):
+        return self.model.get_tasks()
+    
+    def delete_task(self, task):
+        self.model.delete_task(task)
+
     def get_view(self) -> TaskListScreenView:
         return self.view

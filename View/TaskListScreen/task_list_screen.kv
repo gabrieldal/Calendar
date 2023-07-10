@@ -1,0 +1,31 @@
+<TaskListScreenView>
+    on_pre_enter: root.controller.load_tasks()
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDTopAppBar:
+            title: 'Tarefas'
+            right_action_items: [['arrow-right', lambda x: root.controller.go_back() ]]
+
+        MDBoxLayout:
+            padding:10
+            spacing:10
+            pos_hint: {'y': 0.9}
+            size_hint_y:0.1
+            MDTextField:
+                id:input_task
+                hint_text:"Insert a task"
+                required:True
+                mode:"fill"
+
+                size_hint_x: 0.6
+            MDRaisedButton:
+                text:"Add"
+                on_release: root.save_task()
+
+            ScrollView:
+                do_scroll_x: False
+
+                MDList:
+                    id: task_list
+                    padding: 10

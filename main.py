@@ -1,33 +1,56 @@
-from kivy.core.window import Window
+"""
+The entry point to the application.
+
+The application uses the MVC template. Adhering to the principles of clean
+architecture means ensuring that your application is easy to test, maintain,
+and modernize.
+
+You can read more about this template at the links below:
+
+https://github.com/HeaTTheatR/LoginAppMVC
+https://en.wikipedia.org/wiki/Model–view–controller
+"""
+
 from kivymd.app import MDApp
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.graphics import Color, Rectangle
-from libs.datepicker import CalendarWidget
+from kivymd.uix.screenmanager import MDScreenManager
 
-class CalendarScreen(MDBoxLayout):
+from View.screens import screens
+
+
+class CalendarMVC(MDApp):
     def __init__(self, **kwargs):
-        super(CalendarScreen, self).__init__(**kwargs)
-        self.orientation = 'vertical'
-        self.padding = "10dp"
+        super().__init__(**kwargs)
+        self.load_all_kv_files(self.directory)
+        # This is the screen manager that will contain all the screens of your
+        # application.
+        self.manager_screens = MDScreenManager()
         
-        with self.canvas:
-            Color(0, 0, 0, 1)  # Cor de fundo preta
-            self.rect = Rectangle(pos=self.pos, size=self.size)
+    def build(self) -> MDScreenManager:
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Blue"
+        self.theme_cls.material_style = "M3"
 
-        self.bind(pos=self.update_rect, size=self.update_rect)
+        self.generate_application_screens()
+        return self.manager_screens
 
-        calendar_widget = CalendarWidget()
-        self.add_widget(calendar_widget)
+    def generate_application_screens(self) -> None:
+        """
+        Creating and adding screens to the screen manager.
+        You should not change this cycle unnecessarily. He is self-sufficient.
 
-    def update_rect(self, *args):
-        self.rect.pos = self.pos
-        self.rect.size = self.size
+        If you need to add any screen, open the `View.screens.py` module and
+        see how new screens are added according to the given application
+        architecture.
+        """
 
+        for i, name_screen in enumerate(screens.keys()):
+            model = screens[name_screen]["model"]()
+            controller = screens[name_screen]["controller"](model)
+            view = controller.get_view()
+            view.manager_screens = self.manager_screens
+            view.name = name_screen
+            self.manager_screens.add_widget(view)
+    
+    
 
-class MainApp(MDApp):
-    def build(self):
-        return CalendarScreen()
-
-
-if __name__ == '__main__':
-    MainApp().run()
+CalendarMVC().run()

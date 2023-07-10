@@ -1,0 +1,19 @@
+<CalendarScreenView>
+    MDFloatLayout:
+        orientation: 'vertical'
+
+        MDTopAppBar:
+            title: "Calendar"
+            pos_hint: {"top": 1}
+            left_action_items: [["order-bool-ascending-variant", lambda x: root.switch_screen('task list screen')]]
+            right_action_items: [["calendar-text", lambda x: root.switch_screen('event list screen')]]
+
+        CalendarWidget:
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: 1, 0.7
+           
+
+        MDFloatingActionButton:
+            icon: "plus"
+            on_press: root.switch_screen('events screen')
+            pos_hint: {"y": 0.025, "center_x": 0.85}

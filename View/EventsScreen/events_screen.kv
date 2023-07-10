@@ -1,0 +1,66 @@
+<EventsScreenView>
+        
+    MDBoxLayout:
+        orientation: 'vertical'
+        
+        MDTopAppBar:
+            title: 'Cadastro de Evento'
+            elevation: 10
+            left_action_items: [['arrow-left', lambda x: root.controller.go_back()]]
+        
+        ScrollView:
+            
+            MDBoxLayout:
+                orientation: 'vertical'
+                padding: '16dp'
+                adaptive_height: True
+                
+                MDTextField:
+                    id: title_field
+                    hint_text: 'Título'
+                    text_color_normal: 1, 1, 1, 1
+                    
+                MDBoxLayout:
+                    adaptive_height: True
+                    spacing: '8dp'
+
+                    DatePicker:
+                        id: start_date_field
+                        hint_text: 'Data de início'
+                        text_color_normal: 1, 1, 1, 1
+
+                    TimePicker:
+                        id: start_time_field
+                        hint_text: 'Hora de início'
+                        text: '01:00'
+                        text_color_normal: 1, 1, 1, 1
+                        validator: "time"
+                        
+                MDBoxLayout:
+                    adaptive_height: True
+                    spacing: '8dp'
+
+                    DatePicker:
+                        id: end_date_field
+                        hint_text: 'Data de término'
+                        text_color_normal: 1, 1, 1, 1
+                        
+                    TimePicker:
+                        id: end_time_field
+                        hint_text: 'Hora de término'
+                        text: '02:00'
+                        text_color_normal: 1, 1, 1, 1
+                        validator: "time"
+                
+                MDTextField:
+                    id: description_field
+                    hint_text: 'Descrição'
+                    multiline: True
+                    text_color_normal: 1, 1, 1, 1
+                
+                MDRaisedButton:
+                    text: 'Salvar'
+                    on_release: root.save_event_data()
+                    size_hint: None, None
+                    size: dp(120), dp(48)
+                    pos_hint: {'center_x': 0.5}

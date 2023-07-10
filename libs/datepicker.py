@@ -17,6 +17,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.textinput import TextInput
+from kivymd.uix.textfield import MDTextField
 from kivy.uix.label import Label
 from kivy.core.window import Window
 from kivy.properties import NumericProperty, ReferenceListProperty
@@ -59,7 +60,7 @@ Builder.load_string("""
 """)    
 ###########################################################
 
-class DatePicker(TextInput):
+class DatePicker(MDTextField):
     """ 
     Date picker is a textinput, if it focused shows popup with calendar
     which allows you to define the popup dimensions using pHint_x, pHint_y, 
@@ -106,7 +107,7 @@ class DatePicker(TextInput):
     def update_value(self, inst):
         """ Update textinput value on popup close """
             
-        self.text = "%s-%s-%s" % tuple(self.cal.active_date)
+        self.text = "%s/%s/%s" % tuple(self.cal.active_date)
         self.focus = False
 
 class CalendarWidget(RelativeLayout):

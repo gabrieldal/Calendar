@@ -14,40 +14,40 @@ class TaskListScreenModel(BaseScreenModel):
     def save_task(self, task_data):
         # Carregar a lista de eventos do arquivo JSON
         try:
-            with open('tasks.json', 'r+') as file:
+            with open('tasks_.json', 'r+') as file:
                 try:
                     self.tasks = json.load(file)
                 except json.JSONDecodeError:
                     self.tasks = []
                 
-                self.tasks.append(task_data)
+                self.tasks.append( task_data)
                 
                 file.seek(0)
                 json.dump(self.tasks, file, indent=4)
                 file.truncate()
         except FileNotFoundError:
-            with open('tasks.json', 'w') as file:
-                self.tasks = task_data
+            with open('tasks_.json', 'w') as file:
+                self.tasks = [task_data]
                 json.dump(self.tasks, file, indent=4)
         # Carregar novamente a lista de eventos atualizada
         self.load_tasks()
 
     def load_tasks(self):
         try:
-            with open('tasks.json', 'r+') as file:
+            with open('tasks_.json', 'r+') as file:
                 try:
                     self.tasks = json.load(file)
                 except json.JSONDecodeError:
                     self.tasks = []
 
         except FileNotFoundError:
-            with open('tasks.json', 'w') as file:
+            with open('tasks_.json', 'w') as file:
                 json.dump(self.tasks, file, indent=4)
         self.notify_observers()
 
-    def detele_task(self, task):
+    def delete_task(self, task):
         # Carregar a lista de eventos do arquivo JSON
-        with open('tasks.json', 'r') as file:
+        with open('tasks_.json', 'r') as file:
             self.tasks = json.load(file)
 
         # Encontrar o índice do evento na lista
@@ -57,7 +57,7 @@ class TaskListScreenModel(BaseScreenModel):
             del self.tasks[index]
 
             # Salvar a lista atualizada de eventos no arquivo JSON
-            with open('tasks.json', 'w') as file:
+            with open('tasks_.json', 'w') as file:
                 json.dump(self.tasks, file, indent=4)
         else:
             # Se o evento não foi encontrado, você pode escolher lançar uma exceção ou realizar outra ação, conforme necessário
@@ -68,7 +68,7 @@ class TaskListScreenModel(BaseScreenModel):
 
     def get_task_index(self, task):
         # Carregar a lista de eventos do arquivo JSON
-        with open('tasks.json', 'r') as file:
+        with open('tasks_.json', 'r') as file:
             self.tasks = json.load(file)
 
         # Encontrar o índice do evento na lista
@@ -81,3 +81,24 @@ class TaskListScreenModel(BaseScreenModel):
 
     def get_tasks(self):
         return self.tasks
+    
+    def switch_task(self, list_item):
+        # Carregar a lista de eventos do arquivo JSON
+        with open('tasks_.json', 'r') as file:
+            self.tasks = json.load(file)
+
+        # Encontrar o índice do evento na lista
+        index = self.get_task_index(list_item)
+
+        # Trocar o status do evento
+        if self.tasks[index]['completed'] == False:
+            self.tasks[index]['completed'] = True
+        else:
+            self.tasks[index]['completed'] = False
+
+        # Salvar a lista atualizada de eventos no arquivo JSON
+        with open('tasks_.json', 'w') as file:
+            json.dump(self.tasks, file, indent=4)
+
+        # Carregar novamente a lista de eventos atualizada
+        self.load_tasks()

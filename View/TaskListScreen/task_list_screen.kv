@@ -1,5 +1,5 @@
 <TaskListScreenView>
-    #on_pre_enter: root.controller.load_events()
+    on_pre_enter: root.controller.load_tasks()
     MDBoxLayout:
         orientation: 'vertical'
         
@@ -21,11 +21,11 @@
                 size_hint_x: 0.6
             MDRaisedButton:
                 text:"Add"
-                on_release: root.save_task(input_task.text)
+                on_release: root.save_task()
 
             ScrollView:
                 do_scroll_x: False
 
                 MDList:
-                    id: event_list
+                    id: task_list
                     padding: 10

@@ -26,11 +26,14 @@ class TaskListScreenController:
     def load_tasks(self):
         self.model.load_tasks()
 
+    def delete_task(self, task):
+        self.model.delete_task(task)
+
     def get_tasks(self):
         return self.model.get_tasks()
     
-    def delete_task(self, task):
-        self.model.delete_task(task)
+    def switch_task_status(self, task):
+        self.model.switch_task(task)
 
     def get_view(self) -> TaskListScreenView:
         return self.view

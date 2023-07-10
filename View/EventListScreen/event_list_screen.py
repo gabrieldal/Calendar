@@ -18,13 +18,13 @@ class EventListScreenView(BaseScreenView):
         for event in events:
             item = TwoLineAvatarIconListItem(
                 IconLeftWidget(
-						icon="pencil",
-						on_release=lambda x: x #self.edit_event(event)
-						),
-					IconRightWidget(
-						icon="delete",
-						on_release=lambda x: self.delete_event(event)
-						),
+                    icon="pencil",
+                    on_release=lambda x: x #self.edit_event(event)
+                    ),
+                IconRightWidget(
+                    icon="delete",
+                    on_release=lambda x: self.delete_event(event)
+                    ),
                 text=event['title'],
                 secondary_text=event['start_date'] + ' ' + event['start_time'] + ' - ' + event['end_date'] + ' ' + event['end_time'] + ' ' + event['description']
             )
@@ -39,6 +39,6 @@ class EventListScreenView(BaseScreenView):
         The view in this method tracks these changes and updates the UI
         according to these changes.
         """
-        events = self.model.get_events()
+        events = self.controller.get_events()
         self.update_list(events)
         

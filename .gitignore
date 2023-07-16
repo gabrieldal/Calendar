@@ -10,4 +10,6 @@ AdbWinUsbApi.dll
 */__init__.py
 */*/__init__.py
 */*/*/__init__.py
-requirements.txt
+/build
+/dist
+/main.spec

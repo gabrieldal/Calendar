@@ -8,8 +8,18 @@
 
 ## Technologies Used
     Python Language
-    Kivy Library
+    Kivy and KivyMD Library
+    
 
 ## How to run
-    Exe and APK not operational yet.
+    Desktop: 
+        Certifique-se de já ter instalado o python no sistema.
+
+        Importe as bibliotecas necessarias com:
+            pip intasll -r requirements.txt
+
+        Rode o main.py
+
+    Android:
+        instale o apk na pasta /bin do repositório.
 
